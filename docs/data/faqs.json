@@ -1,0 +1,27 @@
+[
+  {
+    "id": "faq-1",
+    "question": "How accurate are the theoretical calculations on PKlab?",
+    "answer": "PKlab uses standard mechanical engineering equations and ISO/ANSI machining formulas. However, real-world factors like spindle rigidity, workpiece fixture stiffness, tool wear, and thermal deflection affect the final performance. Treat calculations as high-precision baseline recommendations and adjust by 10-15% on the machine if necessary."
+  },
+  {
+    "id": "faq-2",
+    "question": "What is Radial Chip Thinning and when should I use it?",
+    "answer": "Whenever your radial depth of cut (stepover, Ae) is less than 50% of the tool's diameter, the cutter produces a chip that is physically thinner than your nominal feed-per-tooth. If you do not compensate by increasing the feed rate, the tool will rub and generate intense heat instead of shearing the material, causing premature failure. Use our Radial Chip Thinning Calculator to find the corrected feed rate."
+  },
+  {
+    "id": "faq-3",
+    "question": "Why does tool overhang affect deflection so drastically?",
+    "answer": "Tool deflection is proportional to the cube of the overhang length (L³). This means if you double the tool overhang, you increase the tool deflection by eight times (2³ = 8)! Keep tools choked up as high as possible in the collet or chuck to maximize rigidity and prevent chatter."
+  },
+  {
+    "id": "faq-4",
+    "question": "How do I calculate Metal Removal Rate (MRR) for steel vs aluminum?",
+    "answer": "The volume of metal removed is the same (Ae × Ap × Feed Rate), but the required power changes. Steel requires approximately 1.0 to 1.5 HP of spindle power per cubic inch per minute of MRR. Aluminum only requires about 0.3 to 0.5 HP per cubic inch per minute. Ensure your spindle's power curves support the MRR you plan to run."
+  },
+  {
+    "id": "faq-5",
+    "question": "Can I integrate these calculators into my own ERP or CAM software?",
+    "answer": "Yes! PKlab is designed with an extensible, modular architecture where calculators are defined using isolated JSON schema contracts. Our software can be adapted as an API or library to support customized ERP feeds, quoting tools, or shop floor tablets."
+  }
+]
