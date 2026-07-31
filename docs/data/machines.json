@@ -1,0 +1,58 @@
+[
+  {
+    "id": "haas-vf2",
+    "name": "Haas VF-2 Super Speed",
+    "type": "Vertical Machining Center (VMC)",
+    "axes": "3-Axis (4th / 5th Optional)",
+    "maxRpm": 12000,
+    "maxPower": "30 HP (22.4 kW)",
+    "travels": "30\" × 16\" × 20\" (762 × 406 × 508 mm)",
+    "spindleTaper": "Inline Direct-Drive CT-40",
+    "maxFeed": "833 ipm (21.2 m/min)",
+    "rapids": "1400 ipm (35.6 m/min)",
+    "controller": "Haas Next-Generation Control (NGC)",
+    "applications": "High-volume job shop production, precision aluminum milling, aluminum mold making."
+  },
+  {
+    "id": "dmg-mori-dmu50",
+    "name": "DMG Mori DMU 50 3rd Gen",
+    "type": "5-Axis Simulataneous Mill",
+    "axes": "5-Axis (Rotary B & C table)",
+    "maxRpm": 20000,
+    "maxPower": "46 HP (35.0 kW)",
+    "travels": "19.7\" × 17.7\" × 15.7\" (500 × 450 × 400 mm)",
+    "spindleTaper": "HSK-A63 SpeedMaster",
+    "maxFeed": "1180 ipm (30.0 m/min)",
+    "rapids": "1650 ipm (42.0 m/min)",
+    "controller": "CELOS with Siemens 840D sl",
+    "applications": "Aerospace impellers, medical implants, complex multi-sided automotive molds."
+  },
+  {
+    "id": "mazak-qt-200",
+    "name": "Mazak Quick Turn 200MSY",
+    "type": "CNC Turning & Milling Center",
+    "axes": "4-Axis (X, Z, Y, C & Sub-Spindle)",
+    "maxRpm": 5000,
+    "maxPower": "25 HP (18.5 kW)",
+    "travels": "X: 9.0\", Y: 4.0\", Z: 22.6\"",
+    "spindleTaper": "A2-6 spindle nose (65mm bar cap)",
+    "maxFeed": "472 ipm (12.0 m/min)",
+    "rapids": "1181 ipm (30.0 m/min)",
+    "controller": "Mazatrol SmoothG",
+    "applications": "Single-setup production of cylindrical shaft components with complex milled slots, cross-holes."
+  },
+  {
+    "id": "tormach-1100mx",
+    "name": "Tormach 1100MX",
+    "type": "Compact Vertical CNC Mill",
+    "axes": "3-Axis",
+    "maxRpm": 10000,
+    "maxPower": "2.0 HP (1.5 kW)",
+    "travels": "18\" × 11\" × 16.25\" (457 × 279 × 413 mm)",
+    "spindleTaper": "BT-30 with Servo-Driven ATC",
+    "maxFeed": "110 ipm (2.8 m/min)",
+    "rapids": "110 ipm (2.8 m/min)",
+    "controller": "PathPilot (LinuxCNC Engine)",
+    "applications": "Prototyping laboratories, education, light job-shop runs, secondary operations, startup engineering."
+  }
+]

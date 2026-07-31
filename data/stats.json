@@ -1,0 +1,26 @@
+[
+  {
+    "id": "stat-1",
+    "value": "51",
+    "label": "Calculator Instruments",
+    "description": "15 live sub-second solvers today, with 50+ instruments spanning spindle, feed, linear, servo and tooling systems."
+  },
+  {
+    "id": "stat-2",
+    "value": "50+",
+    "label": "Editorial Topic Pages",
+    "description": "Handbooks covering machine structure, spindles, motion systems, tooling, workholding and accuracy."
+  },
+  {
+    "id": "stat-3",
+    "value": "< 12ms",
+    "label": "Execution Latency",
+    "description": "Blazing fast client-side arithmetic running directly in the browser with zero API overhead."
+  },
+  {
+    "id": "stat-4",
+    "value": "100%",
+    "label": "Open Compliance",
+    "description": "Fully aligned with mechanical standards such as ISO 1302 and ASME B5.50."
+  }
+]
