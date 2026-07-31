@@ -1,0 +1,44 @@
+[
+  {
+    "id": "f-1",
+    "title": "High-Fidelity Calculations",
+    "description": "Formulas validated against modern standards (ISO 1302, ASME B5.50) with high floating-point precision and boundaries.",
+    "icon": "Cpu",
+    "tag": "Accuracy"
+  },
+  {
+    "id": "f-2",
+    "title": "Engineering Notes & Formulas",
+    "description": "Each calculator provides a full theoretical explanation, clear formula printouts, and real-world physical notes.",
+    "icon": "BookOpen",
+    "tag": "Education"
+  },
+  {
+    "id": "f-3",
+    "title": "Dual Unit Systems",
+    "description": "Simultaneous calculation outputs in Imperial (Inches, lb-ft, HP, SFM) and Metric (Millimeters, N·m, kW, m/min) systems.",
+    "icon": "Layers",
+    "tag": "Localization"
+  },
+  {
+    "id": "f-4",
+    "title": "Instant Client-Side Search",
+    "description": "A unified sub-second search engine indexing calculators, materials, machine libraries, and topics instantly.",
+    "icon": "Search",
+    "tag": "Performance"
+  },
+  {
+    "id": "f-5",
+    "title": "Responsive Layout",
+    "description": "Elegant design built on a warm ivory aesthetic, rendering perfectly on iPads, smartphones, and shop-floor displays.",
+    "icon": "Smartphone",
+    "tag": "Design"
+  },
+  {
+    "id": "f-6",
+    "title": "Extensible Architecture",
+    "description": "Store all static configurations in clean, decoupled JSON files, making future database or login integrations a breeze.",
+    "icon": "Code",
+    "tag": "Future-Proof"
+  }
+]
