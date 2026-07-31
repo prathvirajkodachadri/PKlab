@@ -1,0 +1,41 @@
+[
+  {
+    "id": "iso-1302",
+    "title": "ISO 1302: Indication of Surface Texture",
+    "scope": "International Standard",
+    "organization": "ISO",
+    "description": "Defines rules for expressing surface roughness, waviness, and lay on technical drawings.",
+    "keyMetrics": [
+      "Ra: Arithmetical mean deviation of the assessed profile.",
+      "Rz: Maximum height of the profile within a sampling length.",
+      "Rq: Root mean square roughness of the profile."
+    ],
+    "applicationNote": "Standard drawings require specifying Ra bounds in microns (μm) or micro-inches (μin). Our theoretical surface finish calculator is designed to output directly to this standard."
+  },
+  {
+    "id": "asme-b550",
+    "title": "ASME B5.50: Steep Taper Tool Shanks",
+    "scope": "American National Standard",
+    "organization": "ASME",
+    "description": "Specifies dimensions and tolerances for BT, CAT, and ISO taper tooling interfaces.",
+    "keyMetrics": [
+      "Taper ratio: 7:24 steep taper.",
+      "CAT-40 and CAT-50 are the standard configurations in the USA.",
+      "BT-30 and BT-40 are standard configurations in Japan and parts of Europe."
+    ],
+    "applicationNote": "Improper drawbar pull force or taper matching leads to micro-vibrations, ruining tool deflection results and reducing spindle bearing life."
+  },
+  {
+    "id": "iso-286",
+    "title": "ISO 286: ISO System of Limits and Fits",
+    "scope": "International Standard",
+    "organization": "ISO",
+    "description": "System of tolerances, deviations, and fits for shafts and holes.",
+    "keyMetrics": [
+      "H7/g6: Standard sliding fit for precision shafts.",
+      "H8/f7: Standard close running fit for rotating shafts.",
+      "H7/s6: Heavy press fit for permanent gears and bushings."
+    ],
+    "applicationNote": "Used to select bearing housings, pin alignments, and slide assembly tolerances. Sizing calculations must match these tolerance windows."
+  }
+]
