@@ -1,0 +1,80 @@
+[
+  {
+    "id": "al-6061",
+    "name": "Aluminum 6061-T6",
+    "group": "Non-ferrous (Group N)",
+    "hardness": "95 HB",
+    "tensileStrength": "310 MPa",
+    "elasticModulus": "68.9 GPa",
+    "machinability": "100%",
+    "recommendedSfm": "800 - 2500",
+    "thermalExpansion": "13.1",
+    "specificCuttingEnergy": "0.7 kW/cm³/min",
+    "notes": "Highly machinable, excellent corrosion resistance. Chips tend to weld to the tool edge under heat; use sharp polished cutting flutes and high flood coolant or MQL."
+  },
+  {
+    "id": "ti-6al4v",
+    "name": "Titanium Ti-6Al-4V (Grade 5)",
+    "group": "Superalloys (Group S)",
+    "hardness": "340 HB",
+    "tensileStrength": "950 MPa",
+    "elasticModulus": "113.8 GPa",
+    "machinability": "22%",
+    "recommendedSfm": "120 - 250",
+    "thermalExpansion": "4.8",
+    "specificCuttingEnergy": "2.4 kW/cm³/min",
+    "notes": "Aerospace workhorse. Very poor thermal conductivity; heat remains concentrated on the cutting edge. Work-hardens instantly; require positive cutting geometry and rigid setup."
+  },
+  {
+    "id": "ss-304",
+    "name": "Stainless Steel 304",
+    "group": "Stainless Steel (Group M)",
+    "hardness": "201 HB",
+    "tensileStrength": "505 MPa",
+    "elasticModulus": "193.0 GPa",
+    "machinability": "45%",
+    "recommendedSfm": "300 - 500",
+    "thermalExpansion": "9.6",
+    "specificCuttingEnergy": "1.9 kW/cm³/min",
+    "notes": "Austeritic stainless steel. Extremely gummy and prone to work-hardening. Do not dwell or allow tool rubbing. Use cobalt HSS or high performance coated carbide."
+  },
+  {
+    "id": "steel-4140",
+    "name": "Alloy Steel 4140 (Annealed)",
+    "group": "Carbon/Alloy Steel (Group P)",
+    "hardness": "197 HB",
+    "tensileStrength": "655 MPa",
+    "elasticModulus": "205.0 GPa",
+    "machinability": "65%",
+    "recommendedSfm": "450 - 750",
+    "thermalExpansion": "6.8",
+    "specificCuttingEnergy": "1.6 kW/cm³/min",
+    "notes": "Chromium-molybdenum medium carbon steel. Hardens to high strength when heat treated. Fairly easy to machine in its annealed state with predictable chip control."
+  },
+  {
+    "id": "cast-iron-g25",
+    "name": "Gray Cast Iron Class 25",
+    "group": "Cast Iron (Group K)",
+    "hardness": "180 HB",
+    "tensileStrength": "180 MPa",
+    "elasticModulus": "100.0 GPa",
+    "machinability": "80%",
+    "recommendedSfm": "400 - 700",
+    "thermalExpansion": "6.1",
+    "specificCuttingEnergy": "1.2 kW/cm³/min",
+    "notes": "Brittle material. Generates powdery, abrasive chips. Can be dry machined safely; ensure high dust vacuuming. Extremely stable with low residual stresses."
+  },
+  {
+    "id": "peek-gf30",
+    "name": "PEEK 30% Glass Filled",
+    "group": "Polymers / Thermoplastics",
+    "hardness": "125 Shore D",
+    "tensileStrength": "150 MPa",
+    "elasticModulus": "9.7 GPa",
+    "machinability": "75%",
+    "recommendedSfm": "400 - 1000",
+    "thermalExpansion": "12.0",
+    "specificCuttingEnergy": "0.3 kW/cm³/min",
+    "notes": "High performance polymer. Glass fibers are extremely abrasive and cause rapid tool edge rounding. Use diamond-coated tooling for optimum service life."
+  }
+]

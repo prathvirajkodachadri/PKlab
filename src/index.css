@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+/**
+ * PKlabs Design Tokens
+ * ---------------------------------------------------------------------------
+ * Every palette value is a CSS custom property consumed by Tailwind v4
+ * utilities (bg-brand-ivory, text-brand-charcoal, ...). The `.dark` block
+ * re-defines the same variables, so the ENTIRE interface flips to dark mode
+ * automatically without touching a single component class.
+ */
+@theme {
+  /* Core editorial palette (light) */
+  --color-brand-ivory: #FAF8F5;
+  --color-brand-charcoal: #1B1C19;
+  --color-brand-olive: #4F5D3D;
+  --color-brand-olive-dark: #3A452C;
+  --color-brand-beige: #EFEBE0;
+  --color-brand-beige-dark: #DFD9CD;
+
+  /* Semantic warning / caution surfaces */
+  --color-brand-warning-bg: #FCF8F2;
+  --color-brand-warning-text: #8C6D40;
+  --color-brand-warning-border: #EFDBC5;
+
+  /* Deep olive CTA panels */
+  --color-brand-panel: #3A452C;
+  --color-brand-panel-accent: #4F5D3D;
+  --color-brand-panel-accent-hover: #343F25;
+
+  --font-serif: "Playfair Display", "Georgia", "Cambria", "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* Dark calibration of the same tokens */
+.dark {
+  --color-brand-ivory: #15160F;
+  --color-brand-charcoal: #ECE9E0;
+  --color-brand-olive: #9DB073;
+  --color-brand-olive-dark: #B4C68C;
+  --color-brand-beige: #23251A;
+  --color-brand-beige-dark: #373B29;
+
+  --color-brand-warning-bg: #282319;
+  --color-brand-warning-text: #D8B987;
+  --color-brand-warning-border: #4A3F22;
+
+  --color-brand-panel: #2E3722;
+  --color-brand-panel-accent: #47553A;
+  --color-brand-panel-accent-hover: #59694A;
+
+  color-scheme: dark;
+}
+
+:root {
+  color-scheme: light;
+}
+
+@layer utilities {
+  /* Premium warm editorial background texture */
+  .bg-editorial-pattern {
+    background-color: var(--color-brand-ivory);
+    background-image: radial-gradient(rgba(79, 93, 61, 0.045) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+}
+
+.dark .bg-editorial-pattern {
+  background-image: radial-gradient(rgba(157, 176, 115, 0.05) 1px, transparent 1px);
+}
+
+/* ---------------------------------------------------------------------------
+ * Lightweight GPU-friendly animations
+ * ------------------------------------------------------------------------ */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-ticker {
+  animation: ticker 40s linear infinite;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
+/* Scrollbar styling follows theme tokens */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-brand-ivory);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-beige-dark);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-olive);
+}
+
+/* Smooth scrolling application-wide */
+html {
+  scroll-behavior: smooth;
+}

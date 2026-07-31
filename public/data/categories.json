@@ -1,0 +1,47 @@
+[
+  {
+    "id": "spindle",
+    "name": "Spindle System",
+    "description": "Rotational kinematics: power, torque, RPM, surface speed, bearing fatigue, thermal growth and spindle dynamics.",
+    "icon": "RotateCw",
+    "color": "olive",
+    "featured": true,
+    "calculatorCount": 10
+  },
+  {
+    "id": "feed-cutting",
+    "name": "Feed & Cutting Parameters",
+    "description": "Feeds, chip geometry, engagement mechanics, removal rates and Taylor tool-life modeling.",
+    "icon": "TrendingUp",
+    "color": "amber",
+    "featured": true,
+    "calculatorCount": 11
+  },
+  {
+    "id": "ball-screw-linear",
+    "name": "Ball Screw & Linear Motion",
+    "description": "Screw whirling, buckling, efficiency, lifecycle, linear inertia, backlash and positioning fidelity.",
+    "icon": "MoveHorizontal",
+    "color": "blue",
+    "featured": true,
+    "calculatorCount": 10
+  },
+  {
+    "id": "servo-drive",
+    "name": "Servo Motor & Drive",
+    "description": "Motor sizing, reflected inertia, gearing, torque envelopes, RMS loading and regenerative energy.",
+    "icon": "Zap",
+    "color": "purple",
+    "featured": true,
+    "calculatorCount": 10
+  },
+  {
+    "id": "tooling",
+    "name": "Tool Holder & Tooling",
+    "description": "Deflection physics, overhang ratios, pull stud force, taper contact, balance grades and magazine logistics.",
+    "icon": "Wrench",
+    "color": "emerald",
+    "featured": true,
+    "calculatorCount": 10
+  }
+]
