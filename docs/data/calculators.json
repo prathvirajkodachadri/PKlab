@@ -581,23 +581,43 @@
   {
     "id": "servo-sizing",
     "categoryId": "servo-drive",
-    "plugin": "mathForm",
+    "plugin": "interactive",
     "difficulty": "Advanced",
     "status": "live",
-    "title": "Servo Motor Sizing",
-    "description": "Evaluate required servo shaft torque to accelerate inertia and overcome slide friction.",
-    "formula": "T_total = J × α + T_friction",
+    "title": "Axis Servo Motor Selection",
+    "description": "Complete 5-step engineering procedure for CNC linear axis servo motor sizing: target motion, load inertia, inertia ratio, linear acceleration, and iteration levers.",
+    "formula": "I = m k^2 \\quad J_L = \\frac{J_r + J_s}{z^2} \\quad \\frac{J_L}{J_M} \\quad \\theta = \\frac{T_{acc}}{J_{tot}} \\quad a = \\frac{\\theta L}{2\\pi z}",
     "inputs": [
-      { "name": "inertia", "label": "Rotational Inertia (J)", "value": 0.0012, "unit": "kg·m²", "min": 0.0001, "max": 0.5, "step": 0.0001, "help": "Sum of motor rotor, screw shaft, and linear table translated inertia." },
-      { "name": "acceleration", "label": "Angular Accel (α)", "value": 150.0, "unit": "rad/s²", "min": 1, "max": 2000, "step": 5, "help": "Peak rotational acceleration requested during rapids." },
-      { "name": "friction", "label": "Friction Torque (T_f)", "value": 0.45, "unit": "N·m", "min": 0.0, "max": 50.0, "step": 0.01, "help": "Torque needed to overcome guideway seal friction and slide preload." }
+      { "name": "rapidSpeed", "label": "Rapid Traverse Rate (V_rapid)", "value": 30.0, "unit": "m/min", "min": 1.0, "max": 120.0, "step": 0.5, "help": "Target linear rapid traverse velocity from machine specification." },
+      { "name": "screwDiameter", "label": "Ball Screw Diameter (D)", "value": 36.0, "unit": "mm", "min": 8.0, "max": 120.0, "step": 1.0, "help": "Outer diameter of the rotating ball screw shaft." },
+      { "name": "screwLead", "label": "Ball Screw Lead (L)", "value": 20.0, "unit": "mm", "min": 2.0, "max": 50.0, "step": 1.0, "help": "Axial travel distance per one full revolution of the ball screw." },
+      { "name": "screwLength", "label": "Screw Length (L_s)", "value": 935.0, "unit": "mm", "min": 50.0, "max": 5000.0, "step": 5.0, "help": "Total rotating length of the ball screw shaft." },
+      { "name": "tableMass", "label": "Moving Mass (W)", "value": 550.0, "unit": "kg", "min": 5.0, "max": 10000.0, "step": 5.0, "help": "Total linear translating mass (table, workpiece, fixtures, slide)." },
+      { "name": "gearRatio", "label": "Reduction Ratio (z)", "value": 1.0, "unit": "ratio", "min": 0.1, "max": 20.0, "step": 0.1, "help": "Speed reduction ratio z = motor revs / screw revs (1.0 = direct drive)." },
+      { "name": "motorInertia", "label": "Motor Rotor Inertia (J_M)", "value": 0.00228, "unit": "kg·m²", "min": 0.00001, "max": 0.1, "step": 0.00001, "help": "Servo motor rotor moment of inertia from manufacturer datasheet." },
+      { "name": "accelTorque", "label": "Acceleration Torque (T_acc)", "value": 19.0, "unit": "N·m", "min": 0.5, "max": 300.0, "step": 0.5, "help": "Peak acceleration torque delivered by the servo motor at operating RPM." },
+      { "name": "couplingInertia", "label": "Coupling Inertia (J_C)", "value": 0.00023, "unit": "kg·m²", "min": 0.0, "max": 0.01, "step": 0.00001, "help": "Rotational inertia of the flexible shaft coupling from catalog." }
     ],
     "outputs": [
-      { "name": "totalTorque", "label": "Required Motor Torque", "unit": "N·m" }
+      { "name": "inertiaRatio", "label": "Inertia Ratio (J_L / J_M)", "unit": "ratio" },
+      { "name": "linearAcceleration", "label": "Linear Acceleration (a)", "unit": "m/s²" },
+      { "name": "gRating", "label": "Acceleration G-Rating", "unit": "G" },
+      { "name": "angularAcceleration", "label": "Angular Acceleration (θ)", "unit": "rad/s²" },
+      { "name": "totalInertia", "label": "Total System Inertia (J_total)", "unit": "kg·m²" },
+      { "name": "loadInertia", "label": "Reflected Load Inertia (J_L)", "unit": "kg·m²" },
+      { "name": "rotatingInertia", "label": "Rotating Mass Inertia (J_r)", "unit": "kg·m²" },
+      { "name": "slidingInertia", "label": "Sliding Mass Inertia (J_s)", "unit": "kg·m²" },
+      { "name": "motorRpm", "label": "Motor Rapid Speed", "unit": "RPM" },
+      { "name": "accelTime", "label": "Acceleration Ramp Time", "unit": "s" }
     ],
-    "formulaExplanation": "The motor must generate enough force to accelerate the rotating and linear masses (Inertia J × Acceleration α) in addition to overcoming static and dynamic friction of slides and bearings.",
-    "engineeringNotes": "Always select a servo with a continuous torque rating exceeding your friction requirements, and a peak acceleration torque that satisfies this total load with a 20-30% safety margin.",
-    "applications": ["Selecting closed-loop AC servo motors for axis upgrades", "Tuning feedback PID loops for CNC gantry acceleration"],
+    "formulaExplanation": "The governing principle is I = m·k² (Inertia equals mass times the square of the radius of gyration). Every moving part in the drivetrain contributes to total inertia.\n\nStep 1: Define Target Motion — Rapid traverse rate sets linear speed and motor shaft RPM: N_motor = (V_rapid / L) × z.\nStep 2: Calculate Load Inertia — Sum rotating mass inertia Jr = (πγ/32)·D⁴·L + Jc and sliding mass inertia Js = W·[L/(2π)]², reflected across gear reduction: JL = (Jr + Js) / z². Total inertia Jtotal = JL + JM.\nStep 3: Check Inertia Ratio — JL / JM must satisfy guideline bands: < 2 for die & mould (high precision), 3–5 for general CNC applications. Ratios > 10 indicate an undersized motor.\nStep 4: Solve Accelerations — Angular acceleration θ = Tacc / Jtotal (rad/s²), and linear acceleration a = θ·L / (2π·z) (m/s²), benchmarked in G (a / 9.8 m/s²).\nStep 5: Iterate Levers — If ratio is high or acceleration is low: (1) Reduce screw diameter (scales with D⁴); (2) Reduce lead L (scales with L²); (3) Add reduction gear/belt z (shrinks reflected inertia by 1/z²); (4) Reduce moving mass W.",
+    "engineeringNotes": "1. Guideline Inertia Ratios: Die & Mould (< 2) ensures tight servo following error and sharp corners without overshoot. General CNC (3–5) balances cycle time and stability. Avoid ratios > 10 without advanced dual-loop feedback or active damping.\n2. The 4 Levers: Diameter is the most sensitive rotary lever (D⁴). Gear reduction is the most powerful overall lever because load inertia is divided quadratically (1/z²). When gearing down, verify the motor's maximum RPM can still achieve the commanded rapid traverse rate.\n3. Peak Torque Headroom: Tacc is the motor's short-time peak acceleration torque. Ensure the amplifier peak current duration (typically 2–3 seconds) is much longer than the computed acceleration ramp time t_acc.",
+    "applications": [
+      "Sizing AC servo motors for milling, lathe and grinding machine axes",
+      "Verifying inertia matching and G-acceleration for high-speed machining centers",
+      "Designing geared belt reducers for gantry routers and heavy tables",
+      "Selecting optimal ball screw diameter and lead for die & mould machinery"
+    ],
     "relatedCalculators": ["required-motor-torque", "reflected-inertia", "rms-torque"]
   },
   {

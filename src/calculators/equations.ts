@@ -630,28 +630,72 @@ const specs: Record<string, EquationSpec> = {
   /* =========================== SERVO MOTOR & DRIVE =========================== */
 
   "servo-sizing": {
-    latex: "T_{total} = J\\,\\alpha + T_f",
+    latex: "J_L = \\dfrac{J_r + J_s}{z^{2}} \\quad \\text{Ratio} = \\dfrac{J_L}{J_M} \\quad \\theta = \\dfrac{T_{acc}}{J_{total}} \\quad a = \\dfrac{\\theta\\,L_{lead}}{2\\pi\\,z}",
     variables: [
-      v("T_{total}", "Required motor torque", "\\mathrm{N\\cdot m}"),
-      v("J", "Total coupled inertia", "\\mathrm{kg\\cdot m^{2}}"),
-      v("\\alpha", "Angular acceleration", "\\mathrm{rad/s^{2}}"),
-      v("T_f", "Friction drag torque", "\\mathrm{N\\cdot m}")
+      v("I = m k^{2}", "Governing principle: mass × radius of gyration squared", "—"),
+      v("J_r", "Rotating inertia (screw shaft + coupling)", "\\mathrm{kg\\cdot m^{2}}"),
+      v("J_s", "Sliding mass equivalent rotational inertia", "\\mathrm{kg\\cdot m^{2}}"),
+      v("J_L", "Reflected load inertia at motor shaft", "\\mathrm{kg\\cdot m^{2}}"),
+      v("J_M", "Motor rotor inertia (datasheet value)", "\\mathrm{kg\\cdot m^{2}}"),
+      v("J_{total}", "Total system inertia (load + motor rotor)", "\\mathrm{kg\\cdot m^{2}}"),
+      v("J_L / J_M", "Inertia ratio (< 2 die & mould, 3–5 general)", "—"),
+      v("T_{acc}", "Motor peak acceleration torque", "\\mathrm{N\\cdot m}"),
+      v("\\theta", "Motor shaft angular acceleration", "\\mathrm{rad/s^{2}}"),
+      v("a", "Linear axis cart acceleration", "\\mathrm{m/s^{2}}"),
+      v("G", "Linear acceleration in G units (a / 9.8)", "\\mathrm{g}"),
+      v("z", "Reduction ratio (motor revs / screw revs)", "—")
     ],
     assumptions: [
-      "Inertia summed: rotor + screw shaft + reflected table.",
-      "Friction includes guideway preload and seals.",
-      "Select motor with 20-30% torque headroom."
+      "Governing principle I = m·k² applies across all moving drivetrain masses.",
+      "Ball screw shaft modeled as solid steel cylinder with density γ = 7850 kg/m³.",
+      "Translating table and workpiece mass reflects onto shaft via pitch arm L/(2π).",
+      "Load inertia reflects through gear reduction with the inverse square (1/z²).",
+      "Motor peak acceleration torque T_acc is delivered across the rapid acceleration ramp.",
+      "Acceptable ratio bands: < 2.0 for die & mould (high precision), 3.0–5.0 for general CNC."
     ],
-    buildSteps: (i, o) => [
-      {
-        text: "Dynamic component Jα combined with steady friction drag:",
-        latex: `T = ${fmt(i.inertia)} \\times ${fmt(i.acceleration)} + ${fmt(i.friction)}\\;\\mathrm{N\\cdot m}`
-      },
-      {
-        text: "Required continuous-plus-peak torque envelope:",
-        latex: `\\boxed{T_{total} = ${fmt(o.totalTorque)}\\;\\mathrm{N\\cdot m}}`
-      }
-    ]
+    buildSteps: (i, o) => {
+      const d_m = (i.screwDiameter ?? 36) / 1000;
+      const l_m = (i.screwLength ?? 935) / 1000;
+      const lead_m = (i.screwLead ?? 20) / 1000;
+      const z = i.gearRatio ?? 1.0;
+      const j_r = o.rotatingInertia ?? (Math.PI * 7850 / 32 * Math.pow(d_m, 4) * l_m + (i.couplingInertia ?? 0.00023));
+      const j_s = o.slidingInertia ?? ((i.tableMass ?? 550) * Math.pow(lead_m / (2 * Math.PI), 2));
+      const j_l = o.loadInertia ?? ((j_r + j_s) / (z * z));
+      const j_m = i.motorInertia ?? 0.00228;
+      const j_tot = o.totalInertia ?? (j_l + j_m);
+      const ratio = o.inertiaRatio ?? (j_l / j_m);
+      const t_acc = i.accelTorque ?? 19;
+      const theta = o.angularAcceleration ?? (t_acc / j_tot);
+      const a = o.linearAcceleration ?? (theta * lead_m / (2 * Math.PI * z));
+      const g = o.gRating ?? (a / 9.8);
+
+      return [
+        {
+          text: "Step 2a — Calculate rotating mass inertia (ball screw + coupling):",
+          latex: `J_r = \\dfrac{\\pi \\times 7850}{32} (${fmt(d_m)})^{4} (${fmt(l_m)}) + ${fmt(i.couplingInertia ?? 0.00023)} = ${fmt(j_r)}\\;\\mathrm{kg\\cdot m^{2}}`
+        },
+        {
+          text: "Step 2b — Calculate sliding mass equivalent rotational inertia (table + workpiece):",
+          latex: `J_s = ${fmt(i.tableMass ?? 550)} \\left[ \\dfrac{${fmt(lead_m)}}{2\\pi} \\right]^{2} = ${fmt(j_s)}\\;\\mathrm{kg\\cdot m^{2}}`
+        },
+        {
+          text: "Step 2c-2d — Reflect load inertia across reduction ratio z and sum with motor rotor:",
+          latex: `J_L = \\dfrac{${fmt(j_r)} + ${fmt(j_s)}}{(${fmt(z)})^{2}} = ${fmt(j_l)}\\;\\mathrm{kg\\cdot m^{2}}, \\quad J_{total} = ${fmt(j_l)} + ${fmt(j_m)} = ${fmt(j_tot)}\\;\\mathrm{kg\\cdot m^{2}}`
+        },
+        {
+          text: "Step 3 — Check the inertia ratio (guideline: < 2 die & mould, 3–5 general):",
+          latex: `\\boxed{\\text{Inertia Ratio} = \\dfrac{J_L}{J_M} = \\dfrac{${fmt(j_l)}}{${fmt(j_m)}} = ${fmt(ratio)}}`
+        },
+        {
+          text: "Step 4a — Solve for angular acceleration from motor peak acceleration torque:",
+          latex: `\\theta = \\dfrac{T_{acc}}{J_{total}} = \\dfrac{${fmt(t_acc)}}{${fmt(j_tot)}} = ${fmt(theta)}\\;\\mathrm{rad/s^{2}}`
+        },
+        {
+          text: "Step 4b — Convert to linear axis acceleration and calculate G-rating (a / 9.8 m/s²):",
+          latex: `\\boxed{a = ${fmt(theta)} \\times \\dfrac{${fmt(lead_m)}}{2\\pi \\times ${fmt(z)}} = ${fmt(a)}\\;\\mathrm{m/s^{2}} = ${fmt(g)}\\;\\mathrm{G}}`
+        }
+      ];
+    }
   },
 
   "required-motor-torque": {
