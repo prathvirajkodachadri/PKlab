@@ -16,6 +16,15 @@ export default defineConfig({
     allowedHosts: true,
   },
   plugins: [react(), tailwindcss(), viteSingleFile()],
+  // The Vite entry template lives at `index.source.html`; the repo-root
+  // `index.html` is the PROMOTED production build that GitHub Pages serves
+  // (Pages deploys the root of `main`, and the build is a self-contained
+  // single file). `npm run build` regenerates it via the promote step.
+  build: {
+    rollupOptions: {
+      input: { index: path.resolve(__dirname, "index.source.html") },
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),

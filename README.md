@@ -76,14 +76,21 @@ Make sure you have Node.js (version 18+ recommended) and npm installed.
    ```bash
    npm run dev
    ```
-   Open `http://localhost:5173` (or the address printed in your terminal) to view the live website in your browser.
+   Open `http://localhost:5173/index.source.html` (or the address printed in your terminal) to view the live website in your browser.
 
 ### Build and Deployment
 To compile the application into a production-optimized package:
 ```bash
 npm run build
    ```
-This generates a single, highly-optimized, self-contained `index.html` file inside the `dist/` directory using the Vite SingleFile plugin, allowing you to load and run all features offline instantly on any browser terminal.
+This generates a single, highly-optimized, self-contained HTML file inside the `dist/` directory using the Vite SingleFile plugin, allowing you to load and run all features offline instantly on any browser terminal. The build is then **promoted to the repository root as `index.html`** automatically.
+
+> **⚠️ How GitHub Pages serves this repo (important)**
+> GitHub Pages deploys the **root of `main`**. The root `index.html` therefore *is* the live website and must always contain the built, self-contained app — never the raw Vite template (which references `/src/main.tsx` and renders as a blank page).
+>
+> - `index.source.html` → the Vite entry template used for **development and builds** (served at `/index.source.html` in dev mode).
+> - `index.html` → the **production artifact** served to visitors. `npm run build` regenerates it; commit and push the updated file to `main` to publish.
+> - After editing source, always run `npm run build`, commit the refreshed root `index.html`, and push to `main`.
 
 ---
 
